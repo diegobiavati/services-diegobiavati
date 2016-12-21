@@ -1,0 +1,28 @@
+version: '2'
+services:
+  web:
+    image: 'redmine:passenger'
+    container_name: 'redmine_web'
+    restart: always
+    ports:
+      - '3000:3000'
+    links:
+      - postgres
+    environment:
+      POSTGRES_PORT_5432_TCP: 5432
+      POSTGRES_ENV_POSTGRES_USER: redmine
+      POSTGRES_ENV_POSTGRES_PASSWORD: pswd
+    volumes:
+      - '../data/redmine/files/:/usr/src/redmine/files/'
+      - '../data/redmine/config/configuration.yml:/usr/src/redmine/config/configuration.yml'
+  postgres:
+    image: 'postgres'
+    container_name: 'redmine_db'
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pswd
+      POSTGRES_USER: redmine
+    volumes:
+      - '../data/redmine/postgres/:/var/lib/postgresql/data'
+    ports:
+      - '5432:5432'
