@@ -15,7 +15,7 @@ services:
       - '../data/redmine/files/:/usr/src/redmine/files/'
       - '../data/redmine/config/configuration.yml:/usr/src/redmine/config/configuration.yml'
   postgres:
-    image: 'postgres'
+    image: 'postgres:9.6'
     container_name: 'redmine_db'
     environment:
       POSTGRES_PASSWORD: pswd
